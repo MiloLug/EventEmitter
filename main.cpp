@@ -6,25 +6,25 @@
 
 using namespace std;
 
+std::mutex m;
+
+struct TmpStruct {
+	int count;
+	std::string id;
+};
+
+void exitLis(Event::DataPack*) {
+	m.lock();
+	std::cout << "exit!" << std::endl;
+	m.unlock();
+	Event::terminate(true);
+};
+
+
 int main() {
-	Event::init();
+	Event::init(8);
 
-
-	struct TmpStruct {
-		int count;
-		std::string id;
-	};
-
-	std::mutex m;
-
-	Event::on("exit", [&m](Event::DataPack*) {
-		m.lock();
-		std::cout << "exit!" << std::endl;
-		m.unlock();
-		Event::terminate(true);
-	});
-
-	Event::on("tester", [&m](Event::DataPack* dt) {
+	Event::on("tester", [](Event::DataPack * dt) {
 		TmpStruct* tmp = &((Event::DataPackCast<TmpStruct>*)dt)->data;
 
 		for (int i = 0; i < tmp->count; i++) {
@@ -34,6 +34,7 @@ int main() {
 			m.unlock();
 		}
 	});
+	Event::on("exit", exitLis);
 
 	Event::emit("tester", new Event::DataPackCast<TmpStruct>({
 		10,

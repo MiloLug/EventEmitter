@@ -107,23 +107,29 @@ namespace Event {
 		ThreadLoops::cycleLocker.notify_all();
 	}
 
-	void ThreadLoops::init(size_t maxThreadsNumber) {
-		size_t proc_count = std::thread::hardware_concurrency();
+	void ThreadLoops::init(size_t threadsNumber) {
+		std::unique_lock<std::mutex> lck(ThreadLoops::m);
+
 		ThreadLoops::ended = 0;
-		for (size_t i = 0; i < proc_count && i < maxThreadsNumber; i++) {
+		for (size_t i = 0; i < threadsNumber; i++) {
 			std::thread* tmp = new std::thread(ThreadLoops::executor, i);
 			tmp->detach();
 			ThreadLoops::threads.push(tmp);
 			ThreadLoops::lockers.push_back(new std::mutex);
 		}
 	}
+	void ThreadLoops::init() {
+		size_t proc_count = std::thread::hardware_concurrency();
+		ThreadLoops::init(proc_count);
+	}
 
 	void ThreadLoops::wait() {
-		size_t threadsNumber = ThreadLoops::threads.size();
-
 		std::unique_lock<std::mutex> lck(ThreadLoops::tm);
 		ThreadLoops::terminator.wait(lck, ThreadLoops::canTerminate);
-
+		lck.unlock();
+		std::unique_lock<std::mutex> lck2(ThreadLoops::m);
+		
+		size_t threadsNumber = ThreadLoops::threads.size();
 		for (size_t i = 0; i < threadsNumber; i++) {
 			std::thread* t = ThreadLoops::threads.top();
 			delete t;

@@ -6,7 +6,6 @@
 #include <mutex>
 #include <vector>
 #include <condition_variable>
-#include <atomic>
 
 namespace Event {
 	typedef std::function<void(DataPack*)> defaultListenerFn_t;
@@ -44,7 +43,8 @@ namespace Event {
 
 		static void addExecutable(DataPack* data, std::vector<defaultListenerFn_t*>& fns);
 
-		static void init(size_t maxThreadsNumber = 2);
+		static void init(size_t threadsNumber);
+		static void init();
 
 		static void wait();
 

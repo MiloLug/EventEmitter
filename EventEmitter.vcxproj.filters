@@ -9,7 +9,7 @@
   <ItemGroup>
     <ClInclude Include="Event\common.h" />
     <ClInclude Include="Event\DataPack.h" />
-    <ClInclude Include="Event\Emitter.h" />
     <ClInclude Include="Event\ThreadLoops.h" />
+    <ClInclude Include="Event\Emitter.h" />
   </ItemGroup>
 </Project>
