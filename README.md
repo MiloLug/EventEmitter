@@ -51,6 +51,32 @@ int main(){
 ```
 Also you can check `main.cpp` for example.
 
+# Data passing
+if you want to pass some data in the function - just use `DataPack`/`DataPackCast`/`DataPackAutoClean`
+#### Be careful!
+- you don't need to delete the data packs manually
+- you can pass **ONLY** dynamically created packs (by `new` etc.)
+#### Examples:
+```c++
+//listener have to take only one argument with type of DataPack*:
+void lis(DataPack*){
+  //now you can cast the data pack
+  DataPackCast<string> *pack = (DataPackCast<string>)DataPack;
+  //and use the data
+  cout << pack->data << endl;
+}
+
+//.....
+
+//to pass the data:
+myEvent.emit("someEvent", new DataPackCast<string>("my message"));
+                                |
+                                ^--- this pack will be deleted after 
+                                     all listeners of this event are executed
+                                     
+//that's why if you want to share one resource, you have to use pointers in your packs
+```
+
 # Details
 (only public methods, fields etc.)
 ## Typedefs:
@@ -162,3 +188,34 @@ template<typename T, typename... U> bool compareFn(const std::function<T(U...)>&
         if only one is comparable: return false
         if both are uncomparable: return &fnA == &fnB
 ```
+
+
+`Event/DataPack.h`
+```
+//// class DataPack
+void* DataPack data //// data field
+
+DataPack::DataPack(void* d) ////constructor
+
+DataPack* copy() //// returns a copy of this pack with the same 'data' field
+
+//// template<typename T = void*> class DataPackCast : public DataPack
+////
+//// it seems to DataPack but with template for data type:
+T DataPackCast::data
+DataPackCast::DataPackCast(T d)
+DataPackCast* copy()
+
+//// template<typename T> class DataPackAutoClean : public DataPack
+////
+//// Uses pointer to T (T*), delete it when all copies of this object.
+//// Automatically executes 'delete' on its data ONLY in the case when all copies of this object have also been deleted
+//// (all copies have a field that contains their total number)
+T DataPackAutoClean::data
+DataPackAutoClean::DataPackCast(T d)
+DataPackAutoClean* copy()
+
+
+
+```
+
