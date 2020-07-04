@@ -1,0 +1,15 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <ItemGroup>
+    <ClCompile Include="Event\common.cpp" />
+    <ClCompile Include="Event\Emitter.cpp" />
+    <ClCompile Include="Event\ThreadLoops.cpp" />
+    <ClCompile Include="main.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="Event\common.h" />
+    <ClInclude Include="Event\DataPack.h" />
+    <ClInclude Include="Event\Emitter.h" />
+    <ClInclude Include="Event\ThreadLoops.h" />
+  </ItemGroup>
+</Project>
