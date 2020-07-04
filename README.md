@@ -12,7 +12,7 @@ Easy to use C ++ thread-based event system
 
 //include event management class
 #include "Event/Emitter.h"
-//since events are multithreaded, I highly recommend using mutexes
+//since the events are multithreaded, I highly recommend using mutexes
 #include <mutex>
 
 std::mutex m;
