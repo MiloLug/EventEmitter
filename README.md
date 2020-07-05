@@ -217,8 +217,8 @@ DataPackCast* copy()
 //// Uses pointer to T (T*), delete it when all copies of this object.
 //// Automatically executes 'delete' on its data ONLY in the case when all copies of this object have also been deleted
 //// (all copies have a field that contains their total number)
-T DataPackAutoClean::data
-DataPackAutoClean::DataPackCast(T d)
+T* DataPackAutoClean::data
+DataPackAutoClean::DataPackCast(T* d)
 DataPackAutoClean* copy()
 
 
