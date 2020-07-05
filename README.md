@@ -6,6 +6,7 @@ Easy to use C ++ thread-based event system
 (but you can change hash function for strings in `Event/common.cpp`, `Event::HashId::hashString`)
 
 # How to start
+Add the `Event` folder to your includes.
 
 ```c++
 #include <iostream>
