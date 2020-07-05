@@ -1,5 +1,5 @@
 # EventEmitter
-Easy to use C ++ thread-based event system
+Easy to use C++ thread-based event system
 
 # Depends on
 [xxHash](https://github.com/Cyan4973/xxHash), but you can change the hash function for strings in `Event/common.cpp`, `Event::HashId::hashString`
@@ -9,12 +9,12 @@ Easy to use C ++ thread-based event system
 # How to start
 Add the `Event` folder to your includes.
 
-OR use precompiled part from `includes`.
+OR use the precompiled part from the `includes` folder.
 
 ```c++
 #include <iostream>
 
-//include event management class with...
+//include the event management class with...
 #include "Event/Emitter.h"
 //or #include "include/EventEmitter.h"
 
@@ -119,7 +119,7 @@ static void ThreadLoops::wait() //// wait for the termination function (ThreadLo
 
 static void ThreadLoops::terminate(bool dontWaitFunctions = false) //// stop all threads.
   dontWaitFunctions - if false => wait until the last functions complete
-      if true => functions in threads are still executing, but you can exit the program
+      if true => functions in the threads are still executing, but you can exit the program
 ```
 
 
@@ -129,8 +129,8 @@ Emitter* Emitter::on(HashId id, const defaultListenerFn_t& fn [, defaultListener
   id - HashId/string/char[]/elemIdNum_t - name of event
   fn - function
   listenerPtr - if passed, takes a pointer to a new function in the storage. 
-      It can be useful if a lambda was passed as an argument to "fn", 
-      then you can remove such a listener with Emitter::off only by this pointer
+      It can be useful if a lambda was passed as the argument "fn", 
+      then you can remove such listeners with Emitter::off only by this pointer
       
 Emitter* off(HashId id, const defaultListenerFn_t& fn) //// remove the listener
   id - HashId/string/char[]/elemIdNum_t - name of event
@@ -138,7 +138,7 @@ Emitter* off(HashId id, const defaultListenerFn_t& fn) //// remove the listener
   
 Emitter* emit(HashId id, DataPack* data = nullptr) //// emit some event
   id - HashId/string/char[]/elemIdNum_t - name of event
-  data - DataPack wrapper with some data
+  data - the DataPack wrapper with some data
   
 Emitter Event::root //// 'extern' defined instance of the Emitter
   
@@ -158,12 +158,12 @@ void Event::emit(...) //// ref to Event::root.emit
 
 `Event/common.h`
 ```
-static elemIdNum_t HashId::hashString(anyof data) //// get hash
+static elemIdNum_t HashId::hashString(anyof data) //// create a hash
   data - one of the following:
       std::string
       const char*
   
-elemIdNum_t HashId::data = 0 //// the hash
+elemIdNum_t HashId::data = 0 //// contains the hash
 string HashId::src = "" //// source string of the hash
 
 HashId::HashId(anyof data) //// constructors
@@ -175,7 +175,7 @@ HashId::HashId(anyof data) //// constructors
       const HashId
 
 HashId operators: =, !=, ==
-    types for all:
+    types for all ones:
         elemIdNum_t
         std::string
         const char*
@@ -186,7 +186,7 @@ template<typename T, typename... U> bool Event::fnCanBeCompared(const std::funct
      ////check if a function can be compared by Event::comparableCompare
 
 template<typename T, typename... U> bool Event::comparableCompare(const std::function<T(U...)>& f1, const std::function<T(U...)>& f2)
-    ////only for comparable functions. if f1 == f2 => true
+    ////only for the comparable functions. if f1 == f2 => true
     
 template<typename T, typename... U> bool compareFn(const std::function<T(U...)>& fnA, const std::function<T(U...)>& fnB)
     ////truth map:
@@ -207,16 +207,16 @@ DataPack* copy() //// returns a copy of this pack with the same 'data' field
 
 //// template<typename T = void*> class DataPackCast : public DataPack
 ////
-//// it seems to DataPack but with template for data type:
+//// It is similar to DataPack but with a template for the data type:
 T DataPackCast::data
 DataPackCast::DataPackCast(T d)
 DataPackCast* copy()
 
 //// template<typename T> class DataPackAutoClean : public DataPack
 ////
-//// Uses pointer to T (T*), delete it when all copies of this object.
+//// Uses a pointer to T (T*).
 //// Automatically executes 'delete' on its data ONLY in the case when all copies of this object have also been deleted
-//// (all copies have a field that contains their total number)
+//// (all the copies have a field that contains their total number)
 T* DataPackAutoClean::data
 DataPackAutoClean::DataPackCast(T* d)
 DataPackAutoClean* copy()
