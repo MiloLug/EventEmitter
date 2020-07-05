@@ -8,11 +8,15 @@ Easy to use C ++ thread-based event system
 # How to start
 Add the `Event` folder to your includes.
 
+OR use precompiled part from `includes`.
+
 ```c++
 #include <iostream>
 
-//include event management class
+//include event management class with...
 #include "Event/Emitter.h"
+//or #include "include/EventEmitter.h"
+
 //since the events are multithreaded, I highly recommend using mutexes
 #include <mutex>
 
