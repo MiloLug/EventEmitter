@@ -11,5 +11,6 @@
     <ClInclude Include="Event\DataPack.h" />
     <ClInclude Include="Event\ThreadLoops.h" />
     <ClInclude Include="Event\Emitter.h" />
+    <ClInclude Include="Event\xxhash.hpp" />
   </ItemGroup>
 </Project>
