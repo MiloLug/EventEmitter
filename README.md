@@ -3,6 +3,7 @@ Easy to use C ++ thread-based event system
 
 # Depends on
 [xxHash](https://github.com/Cyan4973/xxHash), but you can change the hash function for strings in `Event/common.cpp`, `Event::HashId::hashString`
+
 I use `xxhash.hpp` from https://github.com/RedSpah/xxhash_cpp
 
 # How to start
