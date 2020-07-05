@@ -49,6 +49,9 @@ namespace Event {
 		if (!tmp->empty()) {
 			ThreadLoops::addExecutable(data, *tmp);
 		}
+		else {
+			delete data;
+		}
 		this->m.unlock();
 		return this;
 	}
