@@ -24,7 +24,7 @@ void exitLis(Event::DataPack*) {
 int main() {
 	Event::init(8);
 
-	Event::on("tester", [](Event::DataPack * dt) {
+	Event::once("tester", [](Event::DataPack * dt) {
 		TmpStruct* tmp = &((Event::DataPackCast<TmpStruct>*)dt)->data;
 
 		for (int i = 0; i < tmp->count; i++) {
