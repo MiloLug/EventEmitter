@@ -57,6 +57,16 @@ int main(){
 ```
 Also you can check `main.cpp` for example.
 
+# Main event management functions
+- #### Emitter::on(event_name, function)
+  Adds listener to the event
+- #### Emitter::once(event_name, function)
+  Adds listener to the event, but it will be executed only once
+- #### Emitter::off(event_name, function)
+  Removes the listener
+- #### Emitter::emit(event_name, data)
+  Adds the listeners to the execution queue
+
 # Data passing
 if you want to pass some data in the function - just use `DataPack`/`DataPackCast`/`DataPackAutoClean`
 #### Be careful!
